@@ -10,7 +10,7 @@ function ProductList({ onHomeClick }) {
     const [addedToCart, setAddedToCart] = useState({});
     const dispatch = useDispatch();
 
-    const plantsArray = [
+    const F_plantsArray = [
         {
             category: "Air Purifying Plants",
             plants: [
@@ -242,28 +242,37 @@ function ProductList({ onHomeClick }) {
     }
 
     const handleHomeClick = (e) => {
-        e.preventDefault();
-        onHomeClick();
+      console.log("ProductList.handleHomeClick");
+
+      e.preventDefault();
+      onHomeClick();
     };
 
     const handleCartClick = (e) => {
+        console.log("ProductList.handleCartClick");
+
         e.preventDefault();
         setShowCart(true); // Set showCart to true when cart icon is clicked
     };
 
     const handlePlantsClick = (e) => {
+        console.log("ProductList.handlePlantsClick");
+
         e.preventDefault();
         setShowPlants(true); // Set showAboutUs to true when "About Us" link is clicked
         setShowCart(false); // Hide the cart when navigating to About Us
     };
 
     const handleContinueShopping = (e) => {
+        console.log("ProductList.handleContinueShopping");
+
         e.preventDefault();
         setShowCart(false);
     };
     
     const handleAddToCart = (product) => {
-//      console.log("ProductList.handleAddToCart");
+      console.log("ProductList.handleAddToCart");
+
       dispatch(addItem(product));
       setAddedToCart((prevState) => ({
         ...prevState,
@@ -293,19 +302,19 @@ function ProductList({ onHomeClick }) {
             </div>
             {!showCart ? (
               <div className="product-grid">
-                {plantsArray.map((plantCategory, categoryIndex) => (
-                  <div className="category" key={categoryIndex}>
+                {F_plantsArray.map((L_plantCategory, L_categoryIndex) => (
+                  <div className="category" key={L_categoryIndex}>
                     <div className="plantname_heading">
-                      <h2 className="plant_heading">{plantCategory.category}</h2>
+                      <h2 className="plant_heading">{L_plantCategory.category}</h2>
                     </div>
                     <ul className="product-list">
-                      {plantCategory.plants.map((plantItem, plantIndex) => (
-                        <li className="product-card" key={plantIndex}>
-                          <h3 className="product-title">{plantItem.name}</h3>
-                          <img src={plantItem.image} className="product-image" alt="{plantItem.name}"/>
-                          <p className="product-price">{plantItem.cost}</p>
-                          <p>{plantItem.description}</p>
-                          <button className="product-button" onClick={() => handleAddToCart(plantItem)}>Add to Cart</button>
+                      {L_plantCategory.plants.map((L_plantItem, L_plantIndex) => (
+                        <li className="product-card" key={L_plantIndex}>
+                          <h3 className="product-title">{L_plantItem.name}</h3>
+                          <img src={L_plantItem.image} className="product-image" alt="{L_plantItem.name}"/>
+                          <p className="product-price">{L_plantItem.cost}</p>
+                          <p>{L_plantItem.description}</p>
+                          <button className="product-button" onClick={() => handleAddToCart(L_plantItem)}>Add to Cart</button>
                         </li>
                       ))}
                     </ul>
