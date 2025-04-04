@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-    const [addedToCart, setAddedToCart] = useState({});
     const dispatch = useDispatch();
     const L_cartItems = useSelector((state) => state.cart.cartItems);
 
@@ -271,16 +270,20 @@ function ProductList({ onHomeClick }) {
         setShowCart(false);
     };
     
-    const handleAddToCart = (product) => {
+    const handleAddToCart = (P_product) => {
       console.log("ProductList.handleAddToCart");
 
-      dispatch(addItem(product));
-      setAddedToCart((prevState) => ({
-        ...prevState,
-        [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
-      }));
+      if (addedToCart(P_product)) {
+        return;
+      }
+  
+      dispatch(addItem(P_product));
     };
 
+    const addedToCart = (P_product) => {
+        return L_cartItems.find((L_item) => L_item.name === P_product.name) ? true : false;
+      };
+    
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -329,7 +332,7 @@ function ProductList({ onHomeClick }) {
                           <img src={L_plantItem.image} className="product-image" alt="{L_plantItem.name}"/>
                           <p className="product-price">{L_plantItem.cost}</p>
                           <p>{L_plantItem.description}</p>
-                          <button className="product-button" onClick={() => handleAddToCart(L_plantItem)}>Add to Cart</button>
+                          <button className={"product-button " + (addedToCart(L_plantItem) ? "added-to-cart" : "")} onClick={() => handleAddToCart(L_plantItem)}>Add to Cart</button>
                         </li>
                       ))}
                     </ul>
