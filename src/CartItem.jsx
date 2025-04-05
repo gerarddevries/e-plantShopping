@@ -7,7 +7,7 @@ const CartItem = ({ onContinueShopping }) => {
   const F_cart = useSelector(state => state.cart.cartItems);
   const dispatch = useDispatch();
 
-  // Calculate total amount for all products in the cart
+  // calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
     let L_total = 0;
 
@@ -54,7 +54,7 @@ const CartItem = ({ onContinueShopping }) => {
     dispatch(removeItem(P_product));    
   };
 
-  // Calculate total cost based on quantity for an item
+  // calculate total cost based on quantity for an item
   const calculateTotalCost = (P_product) => {
     console.log("CartItem.calculateTotalCost");
 
